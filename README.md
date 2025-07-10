@@ -45,17 +45,26 @@ This Flutter-based wallet application simulates real-time balance updates, trans
 
 
 
-## Output Previews
+## Output Previews for Wallet balance and Transaction history page
 
 | Mobile | Tablet | Web |
 |--------|--------|-----|
 | <img src="https://github.com/user-attachments/assets/ed530020-f0ad-4b9a-858c-154b3da30470" width="200"/> | <img src="https://github.com/user-attachments/assets/856d9e08-1b0d-44e2-bc35-e1f6288d6a20" width="300"/> | <img src="https://github.com/user-attachments/assets/025a4081-ca6b-4a0f-b406-d4277b6bffaf" width="400"/> |
 
+
+## Output Previews for Transaction details page
+
+| Mobile | Tablet | Web |
+|--------|--------|-----|
+| <img src="https://github.com/user-attachments/assets/9fc6b7c8-74a3-4afa-98f5-0f0ed881ce48" width="200"/> | <img src="https://github.com/user-attachments/assets/9d7c840b-bf7d-48d5-b94e-fcaa1282f8dd" width="300"/> | <img src="https://github.com/user-attachments/assets/05477422-c107-4513-ba8a-aa12cf3e3206" width="400"/> |
+
 ---
+
 
 ## Demo Video
 
 ▶️ [Click to watch demo](https://github.com/iamsathishz/paywize/blob/master/assets/demo.mp4)
+
 
 ## Tech Stack
 
