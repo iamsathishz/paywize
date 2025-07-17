@@ -4,7 +4,6 @@ import 'package:paywize_r2_interview/helper/theme.dart';
 import 'screens/wallet_screen.dart';
 import 'repositories/wallet_repository.dart';
 import 'blocs/wallet_bloc.dart';
-import 'blocs/wallet_event.dart';
 
 void main() {
   runApp(const WalletApp());
@@ -20,7 +19,7 @@ class WalletApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appDarkTheme,
       home: BlocProvider(
-        create: (_) => WalletBloc(WalletRepository())..add(StartWalletStream()),
+        create: (_) => WalletBloc(WalletRepository()),
         child: const WalletScreen(),
       ),
     );
