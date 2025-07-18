@@ -7,7 +7,6 @@ import 'wallet_state.dart';
 
 class WalletBloc extends Bloc<WalletEvent, WalletState> {
   final WalletRepository repository;
-  StreamSubscription<double>? _streamSub;
 
   WalletBloc(this.repository)
     : super(WalletState(repository.currentBalance, [])) {
@@ -56,7 +55,6 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
 
   @override
   Future<void> close() {
-    _streamSub?.cancel();
     repository.dispose();
     return super.close();
   }
