@@ -35,6 +35,18 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     });
 
     on<PayoutRequested>((event, emit) {
+      if (event.amount < 100) {
+        final newTxn = TransactionModel(
+          amount: event.amount,
+          dateTime: DateTime.now(),
+          status: 'Refund',
+          remarks: 'Minimum ₹100 required for payout',
+        );
+
+        emit(state.copyWith(transactions: [newTxn, ...state.transactions]));
+        return;
+      }
+
       final updatedBalance = repository.payout(event.amount);
 
       final newTxn = TransactionModel(

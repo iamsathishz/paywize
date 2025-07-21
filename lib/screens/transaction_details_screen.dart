@@ -13,7 +13,11 @@ class TransactionDetailScreen extends StatelessWidget {
       'EEEE, dd MMMM yyyy - hh:mm a',
     ).format(transaction.dateTime);
     final statusColor =
-        transaction.status == 'Credit' ? Colors.green : Colors.red;
+        transaction.status == 'Credit'
+            ? Colors.green
+            : transaction.status == 'Refund'
+            ? Colors.orange
+            : Colors.red;
 
     return Scaffold(
       appBar: AppBar(

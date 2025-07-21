@@ -122,7 +122,7 @@ class _WalletScreenState extends State<WalletScreen> {
         ),
         onPressed: _handlePayout,
         child: const Text(
-          "Payout ₹100",
+          "Payout",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
@@ -131,34 +131,52 @@ class _WalletScreenState extends State<WalletScreen> {
 
   Future<void> _handlePayout() async {
     final balance = context.read<WalletBloc>().repository.currentBalance;
+    final amountController = TextEditingController();
 
-    if (balance <= 100) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Insufficient wallet balance (₹$balance)")),
-      );
-      return;
-    }
-
-    final confirm = await showDialog<bool>(
+    final payoutAmount = await showDialog<double>(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text("Confirm Payout"),
-            content: const Text("Do you want to payout ₹100?"),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text("Cancel"),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text("Confirm"),
-              ),
-            ],
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Enter Payout Amount"),
+          content: TextField(
+            controller: amountController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: "Amount (₹)",
+              border: OutlineInputBorder(),
+            ),
           ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, null),
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                final enteredAmount = double.tryParse(amountController.text);
+                if (enteredAmount == null || enteredAmount <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Enter a valid amount")),
+                  );
+                } else {
+                  Navigator.pop(context, enteredAmount);
+                }
+              },
+              child: const Text("Confirm"),
+            ),
+          ],
+        );
+      },
     );
-    if (confirm == true && context.mounted) {
-      context.read<WalletBloc>().add(PayoutRequested(100));
+
+    if (payoutAmount != null && context.mounted) {
+      if (balance < payoutAmount) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Insufficient wallet balance (₹$balance)")),
+        );
+        return;
+      }
+      context.read<WalletBloc>().add(PayoutRequested(payoutAmount));
     }
   }
 
